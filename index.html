@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOMFIGMA: Design Tool</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+
+        <!-- left toolbar -->
+         <aside class="toolbar">
+            <div class="toolbar-scroll scroll-area">
+
+                <div class="brand">
+                    <div class="brand-logo-wrap">
+                        <img class="brand-logo" src="favicon.png" alt="DOMFIGMA LOGO">
+                    </div>
+
+                    <div class="brand-text">
+                        <h2 class="logo">DOMFIGMA</h2>
+                        <p class="small-muted">DOM-based editor</p>
+                    </div>
+                </div>
+
+                <!-- adding shapes -->
+                 <div class="card mini-card">
+                    <label class="label">Add Shapes</label>
+                     <div class="row2">
+                        <select id="shape-select" class="select">
+                            <option value="rect">Rectangle</option>
+                            <option value="square">Square</option>
+                            <option value="circle">Circle</option>
+                            <option value="oval">Oval (Ellipse)</option>
+                            <option value="triangle">Triangle</option>
+                            <option value="right-triangle">Right Triangle</option>
+                            <option value="pentagon">Pentagon</option>
+                            <option value="hexagon">Hexagon</option>
+                            <option value="octagon">Octagon</option>
+                            <option value="rhombus">Rhombus</option>
+                            <option value="trapezoid">Trapezoid</option>
+                            <option value="parallelogram">Parallelogram</option>
+                            <option value="kite">Kite</option>
+                            <option value="line">Line</option>
+                        </select>
+                        <button id="add-shape-btn" class="btn small">Add</button>
+                     </div>
+                     <button id="add-text-btn" class="btn secondary full">Add Text</button>
+                 </div>
+
+                 <hr class="sep"/>
+
+                 <!-- save/dlt/load/rename/select btns -->
+                 <div class="card mini-card">
+                     <label class="label">Designs</label>
+                     <input id="Design-name" class="input" placeholder="Design name">
+                     <button id="save-btn" class=" btn secondary"> 💾 Save Design</button>
+
+                    <div class="row2">
+                        <select class="select" id="design-list">
+                            <option value="">Select Saved Design</option>
+                        </select>
+                        <button class="btn secondary small" id="load-btn">Load</button>
+                    </div>
+
+                    <div class="row2">
+                        <button class="btn secondary small" id="rename-btn">Rename</button>
+                        <button class="btn danger small" id="delete-save-btn">Delete</button>
+                    </div>
+                    <button class="btn danger" id="clear-btn">Clear Canvas</button>
+                 </div>   
+
+                <hr class="sep"/>
+
+                <!-- export btns -->
+                 <button id="export-json-btn" class="btn secondary">⬇ Export JSON</button>
+                 <button id="export-html-btn" class="btn secondary">⬇ Export HTML</button>
+
+                 <div class="footer-note">
+                     <p class="small-muted"><b>Tip:</b> Shift rotate snaps to 15°</p>
+                    <p class="small-muted"><b>Copy/Paste:</b> Ctrl+C / Ctrl+V</p>
+                    <p class="small-muted"><b>Right Click:</b> Duplicate / Delete / Layer</p>
+                 </div>
+            </div>
+         </aside>
+    </div>
+    
+</body>
+</html>
