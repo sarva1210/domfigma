@@ -161,7 +161,124 @@
         </main>
     
     
-        
+        <!-- right panel -->
+        <aside class="right-panel" id="rightPanel">
+            <div class="right-scroll scroll-area">
+                <section class="panel props-panel">
+                    <h3>Properties</h3>
+
+                    <div class="props scroll-area">
+                        <div class="prop">
+                            <label>X</label>
+                            <input id="prop-x" type="number" />
+                        </div>
+                     
+                        <div class="prop">
+                            <label>Y</label>
+                            <input id="prop-y" type="number" />
+                        </div>
+                    
+                        <div class="prop">
+                            <label>Width</label>
+                            <input id="prop-w" type="number" />
+                        </div>
+                    
+                        <div class="prop">
+                            <label>Height</label>
+                            <input id="prop-h" type="number" />
+                        </div>
+
+                        <div class="prop">
+                            <label>Rotation</label>
+                            <input id="prop-rot" type="number" />
+                        </div>
+
+                        <div class="prop">
+                            <label>Opacity</label>
+                            <input id="prop-opacity" type="range" min="0" max="1" step="0.05" />
+                        </div>
+
+                        <div class="prop">
+                            <label>Style</label>
+                            <select id="prop-style" class="select">
+                                <option value="fill">Fill</option>
+                                <option value="outline">Outline</option>
+                            </select>
+                        </div>
+
+                        <div class="prop">
+                            <label>Fill Mode</label>
+                            <select id="prop-fill-mode" class="select">
+                                <option value="solid">Solid</option>
+                                <option value="linear">Linear Gradient</option>
+                                <option value="radial">Radial Gradient</option>
+                            </select>
+                        </div>
+
+                        <div class="prop">
+                            <label>Fill A</label>
+                            <input id="prop-fill-a" type="color" />
+                        </div>
+
+                        <div class="prop">
+                            <label>Fill B</label>
+                            <input id="prop-fill-b" type="color" />
+                        </div>
+
+                        <div class="prop">
+                            <label>Stroke</label>
+                            <input id="prop-stroke" type="color" />
+                        </div>
+
+                        <div class="prop">
+                            <label>Stroke W</label>
+                            <input id="prop-stroke-w" type="number" min="0" />
+                        </div>
+                     
+                        <div class="prop">
+                            <label>Corner Radius</label>
+                            <input id="prop-radius" type="number" min="0" />
+                        </div>
+
+                        <div class="prop">
+                            <label>Locked</label>
+                            <select id="prop-locked" class="select">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="prop">
+                            <label>Hidden</label>
+                            <select id="prop-hidden" class="select">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="prop prop-wide">
+                            <label>Text</label>
+                            <textarea id="prop-text" rows="3" placeholder="Write text here..."></textarea>
+                            <p class="mini-hint" id="text-hint">Scroll to edit text : Drag corner to resize</p>
+                        </div>
+                    </div>
+                    <p id="props-note" class="muted">Select an element to edit.</p>
+                </section>
+
+                <section class="panel layers">
+                    <div class="layers-head">
+                        <h3>Layers</h3>
+                        <div class="layer-actions">
+                            <button id="layer-up-btn" class="mini-btn">▲</button>
+                            <button id="layer-down-btn" class="mini-btn">▼</button>
+                        </div>
+                    </div>
+                
+                    <div id="layers-list" class="layers-list scroll-area"></div>
+                </section>
+
+            </div>
+        </aside>
     </div>
 
   <script src="app.js"></script>
