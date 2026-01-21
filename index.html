@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOMFIGMA: Design Tool</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOMFIGMA: Design Tool</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-    <div class="app">
+    <div class="app" id="appRoot">
 
-        <!-- left toolbar -->
-         <aside class="toolbar">
+        <!-- left panel -->
+        <aside class="toolbar" id="leftPanel">
             <div class="toolbar-scroll scroll-area">
-
                 <div class="brand">
-                    <div class="brand-logo-wrap">
-                        <img class="brand-logo" src="favicon.png" alt="DOMFIGMA LOGO">
-                    </div>
 
+                    <div class="brand-logo-wrap">
+                        <img src="favicon.png" alt="DOMFIGMA Logo" class="brand-logo" />
+                    </div>
+                    
                     <div class="brand-text">
                         <h2 class="logo">DOMFIGMA</h2>
                         <p class="small-muted">DOM-based editor</p>
                     </div>
+                    
+                    <button id="toggle-left" class="panel-toggle" title="Collapse left panel">⟨</button>
                 </div>
-
-                <!-- adding shapes -->
-                 <div class="card mini-card">
-                    <label class="label">Add Shapes</label>
-                     <div class="row2">
+                
+                <!-- Shape tool -->
+                <div class="card mini-card">
+                    <label class="label">Shape Tool</label>
+                    <div class="row2">
                         <select id="shape-select" class="select">
                             <option value="rect">Rectangle</option>
                             <option value="square">Square</option>
@@ -44,49 +47,123 @@
                             <option value="parallelogram">Parallelogram</option>
                             <option value="kite">Kite</option>
                             <option value="line">Line</option>
-                        </select>
-                        <button id="add-shape-btn" class="btn small">Add</button>
-                     </div>
-                     <button id="add-text-btn" class="btn secondary full">Add Text</button>
-                 </div>
-
-                 <hr class="sep"/>
-
-                 <!-- save/dlt/load/rename/select btns -->
-                 <div class="card mini-card">
-                     <label class="label">Designs</label>
-                     <input id="Design-name" class="input" placeholder="Design name">
-                     <button id="save-btn" class=" btn secondary"> 💾 Save Design</button>
-
-                    <div class="row2">
-                        <select class="select" id="design-list">
-                            <option value="">Select Saved Design</option>
-                        </select>
-                        <button class="btn secondary small" id="load-btn">Load</button>
+                        </select>                        
+                        <button id="shape-tool-btn" class="btn small">Draw</button>
                     </div>
+                    <button id="add-text-btn" class="btn secondary full">Add Text</button>
+                </div>
+                
+                <!-- toggle -->
+                <div class="row">
+                    <label class="toggle">
+                        <input id="snap-toggle" type="checkbox" />
+                        <span>Snap to Grid</span>
+                    </label>
+                </div>
+                
+                <!-- sep "its a dividing line" -->
+                <hr class="sep" />
 
-                    <div class="row2">
-                        <button class="btn secondary small" id="rename-btn">Rename</button>
-                        <button class="btn danger small" id="delete-save-btn">Delete</button>
+                <!-- align tools -->
+                <div class="card mini-card">
+                    <label class="label">Align Tools</label>
+                    <div class="align-grid">
+                        <button id="align-left" class="mini-btn">Left</button>
+                        <button id="align-center" class="mini-btn">Center</button>
+                        <button id="align-right" class="mini-btn">Right</button>
+                        <button id="align-top" class="mini-btn">Top</button>
+                        <button id="align-middle" class="mini-btn">Middle</button>
+                        <button id="align-bottom" class="mini-btn">Bottom</button>
                     </div>
-                    <button class="btn danger" id="clear-btn">Clear Canvas</button>
-                 </div>   
-
-                <hr class="sep"/>
-
-                <!-- export btns -->
-                 <button id="export-json-btn" class="btn secondary">⬇ Export JSON</button>
-                 <button id="export-html-btn" class="btn secondary">⬇ Export HTML</button>
-
-                 <div class="footer-note">
-                     <p class="small-muted"><b>Tip:</b> Shift rotate snaps to 15°</p>
-                    <p class="small-muted"><b>Copy/Paste:</b> Ctrl+C / Ctrl+V</p>
-                    <p class="small-muted"><b>Right Click:</b> Duplicate / Delete / Layer</p>
-                 </div>
+                    <p class="small-muted">Works on multi-select</p>
+                </div>
+                
+                <hr class="sep" />
+                
+                <!-- save/dlt/load/rename/clear/select btns  -->
+                <div class="card mini-card">
+                    <label class="label">Designs</label>
+                    <input id="design-name" class="input" placeholder="Design name" />
+                    <button id="save-btn" class="btn secondary">💾 Save Design</button>
+                    <button id="quick-save-btn" class="btn secondary">Quick Save (Ctrl+S)</button>
+                    <div class="row2">
+                        <select id="design-list" class="select">
+                            <option value="">Select saved design</option>
+                        </select>
+                        <button id="load-btn" class="btn secondary small">Load</button>
+                </div>
+                
+                <div class="row2">
+                    <button id="rename-btn" class="btn secondary small">Rename</button>
+                    <button id="delete-save-btn" class="btn danger small">Delete</button>
+                </div>
+                <button id="clear-btn" class="btn danger">Clear Canvas</button>
             </div>
-         </aside>
-         
-    </div>
+            
+            <hr class="sep" />
+
+            <!-- Export btn -->
+            <button id="export-json-btn" class="btn secondary">⬇ Export JSON</button>
+            <button id="export-html-btn" class="btn secondary">⬇ Export HTML</button>
+
+            <div class="footer-note">
+                <p class="small-muted"><b>Zoom:</b> Ctrl+Scroll / Ctrl +/-</p>
+                <p class="small-muted"><b>Pan:</b> Hold Space + Drag</p>
+                <p class="small-muted"><b>Rotate Snap:</b> Shift (15°)</p>
+                <p class="small-muted"><b>Multi:</b> Shift+Click | Marquee drag</p>
+                <p class="small-muted"><b>Alt+Drag:</b> Duplicate</p>
+            </div>
+        </aside>
     
+    
+        <!-- center part -->
+        <main class="workspace">
+            <div class="topbar">
+
+                <div class="top-left">
+                    <p class="file-title">Untitled : DOMFIGMA</p>
+                    <p class="hint" id="mode-label">Mode: Select</p>
+                </div>
+            
+                <div class="top-right">
+                    <button id="zoom-out" class="icon-btn" title="Zoom Out">−</button>
+                    <span id="zoom-label" class="zoom-label">100%</span>
+                    <button id="zoom-in" class="icon-btn" title="Zoom In">+</button>
+                    <button id="reset-view" class="icon-btn" title="Reset View">⟳</button>
+                    <button id="toggle-right" class="icon-btn" title="Collapse right panel">⟩</button>
+                </div>
+            </div>
+
+            <div class="canvas-wrap">
+                <div id="canvas" class="canvas">
+                    <div id="viewport" class="viewport"></div>
+                </div>
+            
+                <div class="guides" id="guides">
+                    <div id="guide-v" class="guide guide-v"></div>
+                    <div id="guide-h" class="guide guide-h"></div>
+                </div>
+            
+                <div id="marquee" class="marquee"></div>
+            
+                <!-- context menu -->
+                <div id="context-menu" class="context-menu">
+                    <button data-action="duplicate">Duplicate</button>
+                    <button data-action="delete" class="danger-item">Delete</button>
+                    <div class="menu-sep"></div>
+                    <button data-action="lock">Lock / Unlock</button>
+                    <button data-action="hide">Hide / Show</button>
+                    <div class="menu-sep"></div>
+                    <button data-action="forward">Bring Forward</button>
+                    <button data-action="backward">Send Backward</button>
+                </div>
+            </div>
+        </main>
+    
+    
+        
+    </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
