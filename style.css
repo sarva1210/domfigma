@@ -177,7 +177,7 @@ select option{
     box-shadow: 0 0 0 3px rgba(183,154,134,0.10);
 }
 
-/* Select btn */
+/*  Select btn */
 .select{
     width: 100%;
     padding: 10px 12px;
@@ -214,7 +214,7 @@ select option{
    color: var(--muted);
 }
 
-/* btns */
+/* save/dlt/load/rename/select btns */
 .btn{
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(183,154,134,0.14);
