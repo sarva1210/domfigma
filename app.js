@@ -393,10 +393,13 @@ function keepInsideCanvas(el) {
     const rect = viewport.getBoundingClientRect();
     const maxX = rect.width / view.zoom - el.w;
     const maxY = rect.height / view.zoom - el.h;
-
-    el.x = clamp(el.x, 0, Math.max(0, maxX));
-    el.y = clamp(el.y, 0, Math.max(0, maxY));
+    const MARGIN = 2000;
+    
+    el.x = clamp(el.x, -MARGIN, maxX + MARGIN);
+    el.y = clamp(el.y, -MARGIN, maxY + MARGIN);
 }
+
+
 
 // render
 function render() {
@@ -660,6 +663,7 @@ function saveDesignToDropdown() {
     refreshDesignDropdown();
     saveQuick();
     pushHistory("Save Design");
+    alert("✅ Design saved successfully!");
 }
 
 saveBtn.addEventListener("click", saveDesignToDropdown);
@@ -667,6 +671,7 @@ saveBtn.addEventListener("click", saveDesignToDropdown);
 quickSaveBtn.addEventListener("click", () => {
     saveQuick();
     pushHistory("Quick Save");
+    alert("✅ Quick Saved!");
 });
 
 loadBtn.addEventListener("click", () => {
@@ -868,13 +873,67 @@ snapToggle.addEventListener("change", (e) => {
 });
 
 // zoom ctrl
-function zoomTo(newZoom) {
+function zoomTo(newZoom, pivot = null) {
+    const oldZoom = view.zoom;
+    const rect = canvas.getBoundingClientRect();
+
+    const pivotScreen = pivot || {
+        x: rect.width / 2,
+        y: rect.height / 2,
+    }; // default center of canvas
+
+    const worldX = (pivotScreen.x - view.panX) / oldZoom;
+    const worldY = (pivotScreen.y - view.panY) / oldZoom;
+
+    // update zoom
     view.zoom = clamp(newZoom, 0.3, 3);
+    view.panX = pivotScreen.x - worldX * view.zoom;
+    view.panY = pivotScreen.y - worldY * view.zoom;
+
     updateViewportTransform();
 }
 
-zoomInBtn.addEventListener("click", () => zoomTo(view.zoom + 0.1));
-zoomOutBtn.addEventListener("click", () => zoomTo(view.zoom - 0.1));
+
+function getSelectedCenter() {
+    if (!primaryId) return null;
+    const el = getElementById(primaryId);
+    if (!el) return null;
+
+    return {
+        x: el.x + el.w / 2,
+        y: el.y + el.h / 2,
+    };
+}
+
+function worldToScreen(worldX, worldY) {
+    return {
+        x: worldX * view.zoom + view.panX,
+        y: worldY * view.zoom + view.panY,
+    };
+}
+
+zoomInBtn.addEventListener("click", () => {
+    const center = getSelectedCenter();
+
+    if (center) {
+        const pivot = worldToScreen(center.x, center.y);
+        zoomTo(view.zoom + 0.1, pivot);
+    } else {
+        zoomTo(view.zoom + 0.1);
+    }
+});
+
+zoomOutBtn.addEventListener("click", () => {
+    const center = getSelectedCenter();
+
+    if (center) {
+        const pivot = worldToScreen(center.x, center.y);
+        zoomTo(view.zoom - 0.1, pivot);
+    } else {
+        zoomTo(view.zoom - 0.1);
+    }
+});
+
 
 resetViewBtn.addEventListener("click", () => {
     view.zoom = 1;
@@ -888,11 +947,19 @@ canvas.addEventListener(
     (e) => {
         if (!e.ctrlKey) return;
         e.preventDefault();
+
+        const rect = canvas.getBoundingClientRect();
+        const pivot = {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        };
+
         const delta = e.deltaY > 0 ? -0.08 : 0.08;
-        zoomTo(view.zoom + delta);
+        zoomTo(view.zoom + delta, pivot);
     },
     { passive: false }
 );
+
 
 // draw tool
 shapeToolBtn.addEventListener("click", () => {
