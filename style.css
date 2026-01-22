@@ -157,21 +157,31 @@ select option{
 }
 
 /* Collapse btn */
+
 .panel-toggle{
   position: absolute;
-  right: 0;
-  top: 6px;
+  top: 50%;
+  right: -2px;
+  transform: translateY(-50%);
   width: 34px;
   height: 34px;
-  border-radius: 12px;
-  border: 1px solid rgba(183,154,134,0.14);
-  background: rgba(255,255,255,0.03);
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  display: grid;
+  place-items: center;
+
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(215,189,166,0.18);
   color: var(--text);
   cursor: pointer;
+  z-index: 50;
+  transition: 0.25s ease;
 }
+
 .panel-toggle:hover{
-  background: rgba(107,75,62,0.22);
-  border-color: rgba(183,154,134,0.55);
+  background: rgba(171,119,67,0.22);
+  border-color: rgba(215,189,166,0.45);
 }
 
 
@@ -290,6 +300,48 @@ select option{
   background: rgba(107,75,62,0.22);
   border-color: rgba(183,154,134,0.55);
 }
+
+
+/****** left panel close/open ******/
+
+.left-collapsed .toolbar{
+  width: 64px !important;
+  padding: 12px 10px !important;
+}
+
+/* Hide  */
+.left-collapsed .toolbar-scroll > *:not(.brand){
+  display: none !important;
+}
+
+/* Brand layout */
+.left-collapsed .brand{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+/* Hide text */
+.left-collapsed .brand-text{
+  display: none !important;
+}
+
+/* Keep only logo visible */
+.left-collapsed .brand-logo{
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+}
+
+/* Handle position */
+.left-collapsed .panel-toggle{
+  position: static !important;
+  transform: none !important;
+  margin-top: 6px;
+}
+
 
 /**** center part *****/
 .workspace{
@@ -449,6 +501,8 @@ select option{
   background: rgba(220,38,38,0.18) !important;
 }
 
+
+
 /**** right panel ****/
 .right-panel{
   height: 100vh;
@@ -484,8 +538,8 @@ select option{
 }
 
 .props-panel h3{
-  margin-left: 50px;
-  transform: translateY(-30px);
+  margin-bottom: 10px;
+  margin-left: 40px;
 }
 .panel-title{
   margin: 0;
@@ -494,22 +548,53 @@ select option{
   letter-spacing: 0.3px;
 }
 
-.panel #toggle-right{
-  width: 36px;
-  height: 36px;
-  border-radius: 14px;
+.panel-toggle-right{
+  position: absolute;
+  top: 8%;
+  right: 220px;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: 500;
   display: grid;
   place-items: center;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(183,154,134,0.14);
+
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(215,189,166,0.18);
   color: var(--text);
   cursor: pointer;
-  transition: 0.2s ease;
+  z-index: 50;
+  transition: 0.25s ease;
 }
 
 .panel-toggle-right:hover{
-  background: rgba(107,75,62,0.22);
-  border-color: rgba(183,154,134,0.55);
+  background: rgba(171,119,67,0.22);
+  border-color: rgba(215,189,166,0.45);
+}
+
+/***** right panel open/close ******/
+.right-collapsed .right-panel{
+  width: 64px !important;
+  padding: 12px 10px !important;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.right-collapsed .right-scroll{
+  display: none !important;
+}
+
+/* keep toggle visible nicely */
+.right-collapsed .panel-toggle-right{
+  top: 18px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  height: 44px !important;
+  width: 44px !important;
+  border-radius: 16px;
 }
 
 /* properties (right side)*/
