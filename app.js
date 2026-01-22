@@ -1112,3 +1112,82 @@ document.addEventListener("mousemove", (e) => {
     }
 });
 
+document.addEventListener("mouseup", () => {
+    if (isDrawing) {
+        isDrawing = false;
+        drawingId = null;
+        drawStart = null;
+        setModeSelect();
+        pushHistory("Draw Shape End");
+    }
+
+    if (isDragging) pushHistory("Drag End");
+    if (isResizing) pushHistory("Resize End");
+    if (isRotating) pushHistory("Rotate End");
+
+    isDragging = false;
+    dragOffsets.clear();
+
+    isResizing = false;
+    resizeHandle = null;
+
+    isRotating = false;
+});
+
+// text edit
+viewport.addEventListener("input", (e) => {
+    const node = e.target.closest(".element.text");
+    if (!node) return;
+    const id = node.dataset.id;
+    const el = getElementById(id);
+    if (!el) return;
+    el.text = node.innerText;
+    saveQuick();
+    pushHistory("Edit Text (DOM)");
+    if (id === primaryId) propText.value = el.text;
+});
+
+// undo/redo/save design
+document.addEventListener("keydown", (e) => {
+    // Ctrl+Z -> Undo
+    if (e.ctrlKey && !e.shiftKey && e.key.toLowerCase() === "z") {
+        e.preventDefault();
+        undo();
+       return;
+    }
+
+    // Ctrl+Shift+Z -> Redo "standard"
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "z") {
+        e.preventDefault();
+        redo();
+        return;
+    }
+
+    // Ctrl+Y -> Redo
+    if (e.ctrlKey && e.key.toLowerCase() === "y") {
+        e.preventDefault();
+        redo();
+        return;
+    }
+
+    // Ctrl+S -> Save Design
+    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        saveDesignToDropdown();
+        return;
+    }
+});
+
+// init
+function init() {
+    snapEnabled = snapToggle.checked;
+
+    refreshDesignDropdown();
+    updateViewportTransform();
+    loadQuick();
+    pushHistory("Initial Load");    // Start history with initial state
+    render();
+    updateProps();
+}
+
+init();
