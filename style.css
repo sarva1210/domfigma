@@ -757,3 +757,68 @@ select option{
     min-height: 65vh;
   }
 }
+
+
+/* rotaton & resize */
+.element.selected{
+  outline: 2px solid rgba(183,154,134,0.95);
+  box-shadow: 0 0 0 5px rgba(183,154,134,0.18);
+}
+
+/* resize dots */
+.handle{
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background: rgba(255,245,238,0.95);
+  border: 2px solid rgba(107,75,62,0.95);
+  border-radius: 50%;
+}
+
+/* handle positions */
+.handle.tl{ 
+  left: -6px; 
+  top: -6px; 
+  cursor: nwse-resize; 
+}
+.handle.tr{ 
+  right: -6px; 
+  top: -6px; 
+  cursor: nesw-resize; 
+}
+.handle.bl{ 
+  left: -6px; 
+  bottom: -6px; 
+  cursor: nesw-resize; 
+}
+.handle.br{ 
+  right: -6px; 
+  bottom: -6px; 
+  cursor: nwse-resize; 
+}
+
+/* rotate knob */
+.rotator{
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 50%;
+  top: -28px;
+  transform: translateX(-50%);
+  background: rgba(183,154,134,0.95);
+  border: 2px solid rgba(11,9,8,0.95);
+  border-radius: 50%;
+  cursor: grab;
+}
+
+.rotator::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: 2px;
+  height: 16px;
+  transform: translateX(-50%);
+  background: rgba(183,154,134,0.65);
+}
+
