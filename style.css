@@ -165,12 +165,12 @@ select option{
   transform: translateY(-50%);
   width: 34px;
   height: 34px;
+  padding-bottom: 5px;
   border-radius: 16px;
   font-size: 20px;
   font-weight: 500;
   display: grid;
   place-items: center;
-
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(215,189,166,0.18);
   color: var(--text);
@@ -212,6 +212,7 @@ select option{
   color: var(--text);
   outline: none;
 }
+
 .select{
   width: 100%;
   padding: 8px 10px;
@@ -221,6 +222,8 @@ select option{
   color: var(--text);
   outline: none;
 }
+
+
 
 .row{
   display: flex;
@@ -526,8 +529,9 @@ select option{
   border: 1px solid rgba(183,154,134,0.14);
   border-radius: var(--radius);
   padding: 14px;
-  overflow: hidden;
+  overflow: visible; /* ✅ so dropdown doesn't get cut */
 }
+
 
 /* Properties h3/ panel */
 .panel-head{
@@ -555,6 +559,7 @@ select option{
   transform: translateY(-50%);
   width: 34px;
   height: 34px;
+  padding-bottom: 4px;
   border-radius: 16px;
   font-size: 20px;
   font-weight: 500;
@@ -631,7 +636,7 @@ select option{
   border: 1px solid rgba(183,154,134,0.16);
   color: var(--text);
 
-  padding: 9px 10px;
+  padding: 9px 40px 9px 12px;
   border-radius: 14px;
 
   outline: none;
@@ -662,6 +667,7 @@ select option{
   color: rgba(183,154,134,0.90);
   font-size: 12px;
   display: block;
+  margin-bottom: -30px;
 }
 
 .muted{
