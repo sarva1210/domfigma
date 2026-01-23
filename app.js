@@ -285,11 +285,9 @@ function createElementMeta(type, x, y, w, h) {
 function applyFill(dom, el) {
     if (el.style === "outline") {
         dom.style.background = "transparent";
-        dom.style.border = `${el.strokeW}px solid ${el.stroke}`;
+        dom.style.border = `${Math.max(0, el.strokeW)}px solid ${el.stroke}`;
         return;
     }
-    
-    dom.style.border = "none";
 
     if (el.fillMode === "solid") {
         dom.style.background = el.fillA;
@@ -298,7 +296,14 @@ function applyFill(dom, el) {
     } else {
         dom.style.background = `radial-gradient(circle at 30% 30%, ${el.fillA}, ${el.fillB})`;
     }
+
+    if ((el.strokeW || 0) > 0) {
+        dom.style.border = `${el.strokeW}px solid ${el.stroke}`;
+    } else {
+        dom.style.border = "none";
+    }
 }
+
 
 // features right panel 
 function applyElementStyles(dom, el) {
@@ -769,20 +774,41 @@ exportHtmlBtn.addEventListener("click", () => {
         const clip = getShapeClipPath(el.type);
         const extra = clip ? `clip-path:${clip};` : "";
 
+        // Text
         if (el.type === "text") {
-            return `<div style="${style} padding:12px; color:rgba(255,245,238,0.92); border:1px solid rgba(183,154,134,0.25); background:rgba(11,9,8,0.45); ${extra}">${(el.text || "").replaceAll("<","&lt;")}</div>`;
+            return `<div style="${style} 
+            padding:12px; 
+            color:rgba(255,245,238,0.92); 
+            border:1px solid rgba(183,154,134,0.25); 
+            background:rgba(11,9,8,0.45);
+            ${extra}">
+            ${(el.text || "").replaceAll("<","&lt;")}</div>`;
         }
 
+        // outline
         if (el.style === "outline") {
-            return `<div style="${style} background:transparent; border:${el.strokeW}px solid ${el.stroke}; ${extra}"></div>`;
+            return `<div style="${style} 
+            background:transparent; 
+            border:${Math.max(0, el.strokeW)}px solid ${el.stroke};
+            ${extra}"></div>`;
         }
 
+        // fill
         let bg = el.fillA;
         if (el.fillMode === "linear") bg = `linear-gradient(135deg, ${el.fillA}, ${el.fillB})`;
         if (el.fillMode === "radial") bg = `radial-gradient(circle at 30% 30%, ${el.fillA}, ${el.fillB})`;
 
-        return `<div style="${style} background:${bg}; ${extra}"></div>`;
+        // Stroke
+        let borderCSS = "border:none;";
+        if ((el.strokeW || 0) > 0) {
+            borderCSS = `border:${el.strokeW}px solid ${el.stroke};`;
+        }
+        return `<div style="${style} 
+        background:${bg}; 
+        ${borderCSS}
+        ${extra}"></div>`;
     })
+
     .join("\n")}
     </div>
     </body>
